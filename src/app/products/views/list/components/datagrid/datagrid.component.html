@@ -1,0 +1,50 @@
+<div class="d-flex flex-column gap-2">
+  <div class="w-100 row px-4 fw-bold">
+    <span class="col-6">Nombre</span>
+    <span class="col-2">SKU</span>
+    <span class="col-3">Precio</span>
+    <span class="col-1"></span>
+  </div>
+  <ng-container *ngIf="productsList.length > 0; else emptyStateTmp">
+    <div
+      class="w-100 bg-white rounded border px-4 py-3 row mb-0"
+      *ngFor="let product of productsList"
+    >
+      <span class="col-6 d-flex gap-2">
+        <img
+          [src]="product.image"
+          width="30"
+          height="30"
+          class="img-thumbnail rounded-circle"
+          alt="image product"
+          (error)="handleImageError($event)"
+        />
+        {{ product.name }}
+      </span>
+      <span class="col-2">{{ product.sku }}</span>
+      <span class="col-3">{{ product.price | currency }}</span>
+      <span class="col-1">
+        <div class="d-flex gap-1 justify-content-end">
+          <div
+            class="btn btn-link cursor-pointer"
+            (click)="detailProduct(product._id)"
+          >
+            <i class="bi bi-eye"></i>
+          </div>
+          <div
+            class="btn btn-link cursor-pointer"
+            (click)="editProduct(product._id)"
+          >
+            <i class="bi bi-pencil"></i>
+          </div>
+        </div>
+      </span>
+    </div>
+  </ng-container>
+  <ng-template #emptyStateTmp>
+    <div class="w-100 d-flex justify-content-center align-items-center flex-column" style="height: 30vh;">
+      <img [src]="emptyState" width="120px" height="120px" alt="empty">
+      <p class="fw-bold">Productos no encontrados</p>
+    </div>
+  </ng-template>
+</div>

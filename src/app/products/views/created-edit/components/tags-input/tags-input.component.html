@@ -1,0 +1,20 @@
+<div class="form-floating">
+  <input
+    type="email"
+    class="form-control"
+    id="floatingTags"
+    placeholder="Etiquetas"
+    (keydown)="setKeyword($event)"
+    [(ngModel)]="tagInput"
+    [ngModelOptions]="{standalone: true}"
+  />
+  <label for="floatingTags">Etiquetas</label>
+</div>
+<div *ngIf="tagsList.length > 0" class="tag-container mt-2">
+  <span *ngFor="let tag of tagsList" class="badge bg-secondary">
+    {{ tag }}
+    <span (click)="removeTag(tag)" class="close-icon cursor-pointer"
+      ><i class="bi bi-x-circle-fill"></i
+    ></span>
+  </span>
+</div>

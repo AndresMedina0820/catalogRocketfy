@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center">
+  <div class="w-75">
+    <div class="row g-4" *ngIf="!loading; else loadingTmp">
+      <div class="card sm:w-100 md:w-50 p-3">
+        <div class="card-body">
+          <h4 class="card-title fw-bold">{{ title }} Producto</h4>
+          <app-forms
+            [typeForm]="typeForm"
+            [dataForm]="dataForm"
+            (save)="saveProduct($event)"
+            (edit)="updateProduct($event)"
+            (delete)="deleteProduct()"
+          ></app-forms>
+        </div>
+      </div>
+    </div>
+    <ng-template #loadingTmp>
+      <app-loading></app-loading>
+    </ng-template>
+  </div>
+</div>

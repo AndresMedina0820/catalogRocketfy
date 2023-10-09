@@ -1,0 +1,12 @@
+<div class="input-group">
+  <span class="input-group-text">
+    <i class="bi bi-search"></i>
+  </span>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Nombre de producto"
+    [(ngModel)]="keyword"
+    (ngModelChange)="onChange()"
+  />
+</div>

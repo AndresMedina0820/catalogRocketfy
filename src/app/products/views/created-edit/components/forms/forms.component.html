@@ -1,0 +1,158 @@
+<form class="mt-4" [formGroup]="form" autocomplete="off">
+  <div class="col-sm-12 col-md-12">
+    <fieldset
+      [disabled]="typeForm === 'details'"
+      class="d-flex flex-column gap-3 mb-3"
+    >
+      <div class="d-flex justify-content-center">
+        <img
+          [src]="form.controls['image'].value"
+          class="border rounded-circle"
+          width="120"
+          height="120"
+          (error)="handleImageError($event)"
+          alt=""
+        />
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="validationControl('name') ? 'is-invalid' : ''"
+          id="floatingName"
+          placeholder="Nombre"
+        />
+        <label for="floatingName">Nombre</label>
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
+
+      <div class="form-floating">
+        <input
+          type="number"
+          min="0"
+          step=".1"
+          formControlName="price"
+          [ngClass]="validationControl('price') ? 'is-invalid' : ''"
+          class="form-control"
+          id="floatingPrice"
+          placeholder="Precio"
+        />
+        <label for="floatingPrice">Precio</label>
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
+
+      <div class="form-floating">
+        <input
+          type="text"
+          placeholder="URL"
+          class="form-control"
+          formControlName="image"
+        />
+        <label for="floatingTags">URL Imagen</label>
+      </div>
+
+      <app-tags-input
+        [tagInput]="tagInput"
+        [tagsList]="tagsList"
+      ></app-tags-input>
+
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          formControlName="description"
+          [ngClass]="validationControl('description') ? 'is-invalid' : ''"
+          placeholder="Descripción"
+          id="floatingDescription"
+          style="height: 100px"
+        ></textarea>
+        <label for="floatingDescription">Descripción</label>
+      </div>
+
+      <div class="form-floating">
+        <input
+          type="text"
+          formControlName="sku"
+          [ngClass]="validationControl('sku') ? 'is-invalid' : ''"
+          class="form-control"
+          id="floatingSku"
+          placeholder="SKU"
+        />
+        <label for="floatingSku">SKU</label>
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
+
+      <div class="form-floating">
+        <input
+          type="number"
+          min="0"
+          step=".1"
+          formControlName="stock"
+          [ngClass]="validationControl('stock') ? 'is-invalid' : ''"
+          class="form-control"
+          id="floatingStock"
+          placeholder="Stock"
+        />
+        <label for="floatingStock">Stock</label>
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
+    </fieldset>
+    <div class="d-flex justify-content-end gap-2">
+      <button
+        class="btn btn-success"
+        (click)="saveProduct()"
+        [disabled]="!form.valid"
+        *ngIf="typeForm === 'create'"
+      >
+        Guardar
+      </button>
+      <button
+        class="btn btn-success"
+        (click)="updateProduct()"
+        [disabled]="!form.valid"
+        *ngIf="typeForm === 'edit'"
+      >
+        Editar
+      </button>
+      <a
+        [href]="'/edit/' + productId"
+        class="btn btn-primary"
+        *ngIf="typeForm === 'details'"
+      >
+        Editar
+      </a>
+      <button
+        class="btn btn-danger"
+        data-bs-toggle="modal" data-bs-target="#confirmModal"
+        *ngIf="typeForm === 'edit'"
+      >
+        Eliminar
+      </button>
+      <a
+        *ngIf="typeForm !== 'details'"
+        class="btn btn-secondary"
+        routerLink="/list"
+        data-bs-dismiss="modal"
+        >Cancelar</a
+      >
+    </div>
+  </div>
+</form>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="fw-bold">¿Deseas eliminar este producto?</p>
+        <div class="my-3 d-flex gap-3 justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteProduct()">Si, deseo eliminarlo.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
