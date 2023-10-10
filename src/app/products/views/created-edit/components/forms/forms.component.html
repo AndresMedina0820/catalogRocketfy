@@ -107,16 +107,17 @@
         Guardar
       </button>
       <button
-        class="btn btn-success"
+        class="btn btn-primary"
         (click)="updateProduct()"
         [disabled]="!form.valid"
         *ngIf="typeForm === 'edit'"
       >
-        Editar
+        Guardar
       </button>
       <a
-        [href]="'/edit/' + productId"
+        [routerLink]="'/edit/' + productId"
         class="btn btn-primary"
+        data-bs-dismiss="modal"
         *ngIf="typeForm === 'details'"
       >
         Editar
